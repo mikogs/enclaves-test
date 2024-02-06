@@ -7,3 +7,15 @@ chpasswd:
   expire: False
 ssh_authorized_keys:
   - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCq5g2lLDzh+RNx6fR8c2WBCxF8V8q6fwSewElpsezIqAewgXT6sn3R8Jenh5b2f3BU7DNwT/W1toLxXrb7iOVBpSpglHCaeEQBlM+vFakQkMazfvDg5cUIKgU3t69Pv+8XUqvHfSP5PmY9GoCSBEyJt3SPzKvpL+/QS5YfVjVPsS7oeUP4e5ZHCEC20EEHkjzscLqkptGgHlJ0KN/khnMJXJXp5qIP8bLVTSqE00bJgtFlJgfQI0/dLCkWBFhn4PNzTPNp1Wf10/ECWFxVfudfltqcpzloTvBCHgwpA14fpkXwzmOlAXUJ/P6/efTt9tlS5+SiSr6wxrZxKfJR950IpjeXGXKQZ2G3QFLO2+esfYb2WNqt8AiZZUknjP8MqBnG0qEy+C5/FUXwhyudr49ykziv2SlgR33QEWKYO3ZFNoaITnBzhRZyhguXU6M3BqQJQUCs+MU4GiUf9p8l1i7X+mI9YaNUcZO/PRODH7J5Q8HWGkjhgGgfRjknd0tS/Vc=
+
+package_update: true
+
+packages:
+  - git
+
+runcmd:
+  - wget https://go.dev/dl/go1.21.6.linux-amd64.tar.gz
+  - rm -rf /usr/local/go && tar -C /usr/local -xzf go1.21.6.linux-amd64.tar.gz
+  - printf '#!/bin/bash\nexport PATH=$PATH:/usr/local/go/bin\n' | tee /etc/profile.d/golangpath.sh
+  - chmod +x /etc/profile.d/golangpath.sh
+
